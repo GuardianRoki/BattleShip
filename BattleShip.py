@@ -1,5 +1,6 @@
 import random
 import os
+import keyboard
 
 def createP1Board():
     
@@ -55,65 +56,88 @@ def printP2Board(board):
 
     print(grid)
 
-def placement(board,player, p1HitList, p2HitList):
 
-    ""
-    placehold = input("Enter coordinates (Row,Col): ")
-    location = placehold.split(",")
-    str_correlate = f"({location})"
-    if str_correlate in p1HitList or str_correlate in p2HitList:
-          while str_correlate in p1HitList or str_correlate in p2HitList:
-               
-               placehold = ("That space has already been hit. Please reselect: ")
-               str_correlate = f"({location})"
-        
-    if player == "Player 1":
-        p1HitList.append(str_correlate)
-    elif player == "Player 2":
-        p2HitList.append(str_correlate)
+def bombTarget(targetLoc, userBomb, board, player):
 
-def strConvert(col):
-     
-     if col == "A":
-          newcol = 0
-     elif col == "B":
-          newcol = 1
-     elif col == "C":
-          newcol = 2
-     elif col == "D":
-          newcol = 3
-     elif col == "E":
-          newcol = 4
+    if userBomb in p1HitList or userBomb in p2HitList:
+        while userBomb in p1HitList or userBomb in p2HitList:
+                
+            print("Please Input a valid coord pair! ")
+            userBomb = input("Please select a section to hit with your artilery: ")
+            continue
 
-     return newcol
-
-
-def bombDropping(targetLoc, userBomb):
     targetLoc = userBomb.split(",")
-    yPos = targetLoc[1]
-    xPos = targetLoc[0]
+    yPos = targetLoc[0]
+    xPos = targetLoc[1]
+    if player == "Player 1":
 
-    return targetLoc
+        if yPos == "A" or yPos == "a":
+            board[0][int(xPos) - 1] = "X"
+            printP1Board(board)
+        if yPos == "B" or yPos == "b":
+            board[1][int(xPos)- 1] = "X"
+            printP1Board(board)
+        if yPos == "C" or yPos == "c":
+            board[2][int(xPos)- 1] = "X"
+            printP1Board(board)
+        if yPos == "D" or yPos == "d":
+            board[3][int(xPos)- 1] = "X"
+            printP1Board(board)
+        if yPos == "E" or yPos == "e":
+            board[4][int(xPos)- 1] = "X"
+            printP1Board(board)
+
+    elif player == "Player 2":
+
+        if yPos == "A" or yPos == "a":
+            board[0][int(xPos) - 1] = "X"
+            printP2Board(board)
+        if yPos == "B" or yPos == "b":
+            board[1][int(xPos)- 1] = "X"
+            printP2Board(board)
+        if yPos == "C" or yPos == "c":
+            board[2][int(xPos)- 1] = "X"
+            printP2Board(board)
+        if yPos == "D" or yPos == "d":
+            board[3][int(xPos)- 1] = "X"
+            printP2Board(board)
+        if yPos == "E" or yPos == "e":
+            board[4][int(xPos)- 1] = "X"
+            printP2Board(board)
+
+    p1HitList.append(userBomb)
+
+    return targetLoc and board
 
 
-userBomb = input("Please select a section to hit with your artilery: ")
+
+playing = True
 targetLoc = None
-
-def main():
-
-    p1ShipList = []
-    p2ShipList = []
-    p1HitList = []
-    p2HitList = []
-    board1Transfer = createP1Board()
-    board2Transfer = createP2Board()
+p1ShipList = []
+p2ShipList = []
+p1HitList = []
+p2HitList = []
+board1Transfer = createP1Board()
+board2Transfer = createP2Board()
+printP2Board(board2Transfer)
 
 
+while(playing):
+
+    print("Welcome to BattleShip!\n")
+    print("In BattleShip, two players engage in a turn-based battle, competing to sink all of the opponent's ships before they lose all of their own.\n")
+    print("Player 1 will start first. If an opposing ship is hit, your turn will continue. Otherwise, player 2's turn will begin.\n")
+
+    print("Press Space to begin\n")
+    keyboard.wait(" ")
+    os.system('cls')
+
+    player = "Player 1"
     printP1Board(board1Transfer)
-    userBomb = input("Please select a section to hit with your artilery: ")
-    targetLoc = None
-
-    return userBomb
+    userBomb = input("\nPlease select a section to hit with your artilery: ")
+    bombTarget(targetLoc, userBomb, board1Transfer, player)
 
 
-main()
+
+
+    playing = False
