@@ -1,4 +1,4 @@
-
+import random
 
 def createBoard():
     
@@ -27,29 +27,57 @@ def printBoard(board):
 
     print(grid)
 
-def bombDropping(targetLoc, userBomb):
+def bombTarget(targetLoc, userBomb, board):
+    if userBomb in p1HitList or userBomb in p2HitList:
+        print("Please Input a valid coord pair! ")
+        userBomb = input("Please select a section to hit with your artilery: ")
+    else:
+        print()
     targetLoc = userBomb.split(",")
-    yPos = targetLoc[1]
-    xPos = targetLoc[0]
+    yPos = targetLoc[0]
+    xPos = targetLoc[1]
+    if yPos == "A" or yPos == "a":
+        board[0][int(xPos) - 1] = "X"
+        printBoard(boardTransfer)
+    if yPos == "B" or yPos == "b":
+        board[1][int(xPos)- 1] = "X"
+        printBoard(boardTransfer)
+    if yPos == "C" or yPos == "c":
+        board[2][int(xPos)- 1] = "X"
+        printBoard(boardTransfer)
+    if yPos == "D" or yPos == "d":
+        board[3][int(xPos)- 1] = "X"
+        printBoard(boardTransfer)
+    if yPos == "E" or yPos == "e":
+        board[4][int(xPos)- 1] = "X"
+        printBoard(boardTransfer)
 
-    return targetLoc
+    p1HitList.append(userBomb)
+
+    return targetLoc and board
 
 
-userBomb = input("Please select a section to hit with your artilery: ")
+
+playing = True
 targetLoc = None
-
-def main():
-
-    p1ShipList = []
-    p2ShipList = []
-    p1HitList = []
-    p2HitList = []
-    boardTransfer = createBoard()
-    printBoard(boardTransfer)
-    userBomb = input("Please select a section to hit with your artilery: ")
-    targetLoc = None
+p1ShipList = []
+p2ShipList = []
+p1HitList = []
+p2HitList = []
+boardTransfer = createBoard()
+printBoard(boardTransfer)
+userBomb = input("Please select a section to hit with your artilery: ")
+bombTarget(targetLoc, userBomb, boardTransfer)
     
-    return userBomb
 
 
-main()
+
+    
+
+
+while(playing):
+    bombTarget(targetLoc, userBomb, boardTransfer)
+    playing = False
+
+
+
