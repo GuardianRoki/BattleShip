@@ -36,6 +36,10 @@ def bombTarget(targetLoc, userBomb, board):
     targetLoc = userBomb.split(",")
     yPos = targetLoc[0]
     xPos = targetLoc[1]
+    if int(xPos) > 5 or int(xPos) < 0:
+        print("Please input a valid target! ")
+        userBomb = input("Please select a section to hit with your artilery: ")
+        bombTarget(targetLoc, userBomb, board)
     if yPos == "A" or yPos == "a":
         board[0][int(xPos) - 1] = "X"
         printBoard(boardTransfer)
@@ -51,7 +55,10 @@ def bombTarget(targetLoc, userBomb, board):
     if yPos == "E" or yPos == "e":
         board[4][int(xPos)- 1] = "X"
         printBoard(boardTransfer)
-
+    else:
+        print("Please input a valid target!")
+        userBomb = input("Please select a section to hit with your artilery: ")
+        bombTarget(targetLoc, userBomb, board)
     p1HitList.append(userBomb)
 
     return targetLoc and board
@@ -76,8 +83,9 @@ bombTarget(targetLoc, userBomb, boardTransfer)
 
 
 while(playing):
+    printBoard(boardTransfer)
+    userBomb = input("Please select a section to hit with your artilery: ")
     bombTarget(targetLoc, userBomb, boardTransfer)
-    playing = False
 
 
 
