@@ -222,26 +222,56 @@ def shipCreateS(numShips,  gridSize, player, ):
     print()
 
 def createDest(playtype, gridSize, placementType):
-        if placementType == 1:
-        #horVert = random.randint(0,1)
-        # if horVert = 0:
-        #   generate coordinates horizontally
-        # elif horVert = 1:
-        #   generate coordinates vertically 
-            generateX = random.randint(0,int(gridSize) - 1)
-            xLetter = strConvert(generateX)
-            generateY = random.randint(0,int(gridSize) - 1)
-            str_correlate = f"({xLetter},{generateY})"
-            print(str_correlate)
-            p1Dest.append(str_correlate)
-        elif placementType == 0:
-            shipLoc = input("Please input a location to sail your ship: ")
-            parkedShip = shipLoc.split(",")
-            xLetter = parkedShip[0]
-            yNumber = parkedShip[1]
-            str_correlate = f"({xLetter},{yNumber})"
-            print(str_correlate)
-            p1Dest.append(str_correlate)
+    if playType == 1:
+        if player == "Player 1":
+            if placementType == 1:
+            #horVert = random.randint(0,1)
+            # if horVert= 0:
+            #   generate  coordinates horizontally
+            # elif horVert = 1:
+            #   generate coordinates vertically 
+                generateX = random.randint(0,gridSize - 1)
+                xLetter = strConvert(generateX)
+                generateY = random.randint(1,gridSize - 1)
+                str_correlate = f"({xLetter},{generateY})"
+                print(str_correlate)
+                p2Dest.append(str_correlate)
+            elif placementType == 0:
+                shipLoc = input("Please input a location to sail your ship: ")
+                parkedShip = shipLoc.split(",")
+                xLetter = parkedShip[0]
+                yNumber = parkedShip[1]
+                str_correlate = f"({xLetter},{yNumber})"
+                print(str_correlate)
+                p2Dest.append(str_correlate)
+        elif player == "Player 2":
+            if placementType == 1:
+            #horVert = random.randint(0,1)
+            # if horVert= 0:
+            #   generate  coordinates horizontally
+            # elif horVert = 1:
+            #   generate coordinates vertically 
+                generateX = random.randint(0,gridSize - 1)
+                xLetter = strConvert(generateX)
+                generateY = random.randint(1,gridSize - 1)
+                str_correlate = f"({xLetter},{generateY})"
+                print(str_correlate)
+                p1Dest.append(str_correlate)
+            elif placementType == 0 and playType == 2:
+                shipLoc = input("Please input a location to sail your ship: ")
+                parkedShip = shipLoc.split(",")
+                xLetter = parkedShip[0]
+                yNumber = parkedShip[1]
+                str_correlate = f"({xLetter},{yNumber})"
+                print(str_correlate)
+                p1Dest.append(str_correlate)
+            elif placementType == 0 and playType == 1:
+                generateX = random.randint(0,gridSize - 1)
+                xLetter = strConvert(generateX)
+                generateY = random.randint(1,gridSize - 1)
+                str_correlate = f"({xLetter},{generateY})"
+                print(str_correlate)
+                p1Dest.append(str_correlate)
 
 def createSub(playtype, ):
     if playtype == 1:
@@ -274,20 +304,11 @@ def createAirC():
     print()
 
 def strConvert(col):
-     
-     newcol = ""
-     if col == 0:
-          newcol = "A"
-     elif col == 1:
-          newcol = "B"
-     elif col == 2:
-          newcol = "C"
-     elif col == 3:
-          newcol = "D"
-     elif col == 4:
-          newcol = "E"
+    keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
-     return newcol
+    newCol = keys[col]
+
+    return newCol
 
 def gameEnding():
     if len(p1HitList) >= 5:
@@ -377,17 +398,17 @@ def misslieLaunchS():
         print("""
                                  ___|___
                -------}===>      |     |
-                                 \_____/""")
+                                 |_____/""")
         time.sleep(.3)
         print("""
                                  ___|___
                  ---------}===>  |     |
-                                 \_____/""")
+                                 |_____/""")
         time.sleep(.3)
         print("""
                                  ___|___
                  ---------BOOOMM )     |
-                                 \_____/""")
+                                 |_____/""")
 
 def missileLaunchO():
     fiftychance = random.randint(0,1)
@@ -449,23 +470,123 @@ def missileLaunchO():
         print("THE POOR FISHIES")
 
 def gmode():
-    playType = int(input("Enter 1 for singleplayer, 2 for co-op: "))
-    return playType
+    gameMode = int(input("Enter 1 for singleplayer, 2 for co-op: "))
+    return gameMode
 
-gridSize = input("\nEnter your grid size (#): ")
-numShips = int(input("How many ships would you like to have? (Max 5): "))
+def compTarget(board):
+    bombX = random.randint(0,gridSize - 1)
+    xLetter = strConvert(bombX)
+    bombY = random.randint(0,gridSize - 1)
+    placeholdc = f"({xLetter},{bombY})"
+    if placehold in p2HitList or placehold in p2HitsHit:
+        print("You've already hit this space! ")
+        compTarget(board)
+    if placeholdc not in p2Dest and placehold not in p2Sub and placehold not in p2Cruise and placehold not in p2Battle and placehold not in p2Air:
+
+            if xLetter == "A" or xLetter == "a":
+
+                board[0][int(bombY) - 1] = "X"
+                printBoard(boardTransfer)
+                p2HitList.append(userBomb)
+                missileLaunchO()
+
+            if xLetter == "B" or xLetter == "b":
+
+                board[1][int(bombY)- 1] = "X"
+                printBoard(boardTransfer)
+                p2HitList.append(userBomb)
+                missileLaunchO()
+
+            if xLetter == "C" or xLetter == "c":
+
+                board[2][int(bombY)- 1] = "X"
+                printBoard(boardTransfer)
+                p2HitList.append(userBomb)
+                missileLaunchO()
+
+            if xLetter == "D" or xLetter == "d":
+
+                board[3][int(bombY)- 1] = "X"
+                printBoard(boardTransfer)
+                p2HitList.append(userBomb)
+                missileLaunchO()
+
+            if xLetter == "E" or xLetter == "e":
+
+                board[4][int(bombY)- 1] = "X"
+                printBoard(boardTransfer)
+                p2HitList.append(userBomb)
+                missileLaunchO()
+
+    elif placeholdc in p2Dest or placehold in p2Sub or placehold in p2Cruise or placehold  in p2Battle or placehold  in p2Air:
+
+            if xLetter == "A" or xLetter == "a":
+
+                board[0][int(bombY) - 1] = Fore.RED + "~" + Fore.RESET
+                printBoard(boardTransfer)
+                p2HitsHit.append(userBomb)
+                misslieLaunchS()
+                print("You Hit!")
+                
+
+            if xLetter == "B" or xLetter == "b":
+
+                board[1][int(bombY)- 1] = "~"
+                printBoard(boardTransfer)
+                p2HitsHit.append(userBomb)
+                misslieLaunchS()
+                print("You Hit!")
+                
+
+            if xLetter == "C" or xLetter == "c":
+
+                board[2][int(bombY)- 1] = "~"
+                printBoard(boardTransfer)
+                p2HitsHit.append(userBomb)
+                misslieLaunchS()
+                print("You Hit!")
+                
+
+            if xLetter == "D" or xLetter == "d":
+
+                board[3][int(bombY)- 1] = "~"
+                printBoard(boardTransfer)
+                p2HitsHit.append(userBomb) 
+                misslieLaunchS()
+                print("You Hit!")
+                
+
+            if xLetter == "E" or xLetter == "e":
+
+                board[4][int(bombY)- 1] = "~"
+                printBoard(boardTransfer)
+                p2HitsHit.append(userBomb)
+                misslieLaunchS()
+                print("You Hit!")
+
+
+
+
 gooping = True
 playing = gooping
 placehold = None
 playType = None
 
-p1Ship1 = []
+
 p1Dest = []
 p1Sub = []
 p1Cruise = []
 p1Battle = []
 p1Air = []
 p1Ship2 = []
+
+
+p2Dest = []
+p2Sub = []
+p2Cruise = []
+p2Battle = []
+p2Air = []
+p2Ship2 = []
 
 p2Ship1 = []
 p2Ship2 = []
@@ -474,37 +595,55 @@ p1HitList = []
 p2HitList = []
 
 p1HitsHit = []
+p2HitsHit=[]
 
-player = "Player 1"
+
     
-# board1Transfer = createP1Board()
-# board2Transfer = createP2Board()
 
-gmode()
+
+playType = gmode()
 
 print("\nWelcome to BattleShip!\n")
 print("In BattleShip, two players engage in a turn-based battle, competing to sink all of the opponent's ships before they lose all of their own.\n")
 print("Player 1 will start first. If an opposing ship is hit, your turn will continue. Otherwise, player 2's turn will begin.\n")
-print("Ships that are sailing will be Green and Ships that are sunk will be Red!")                              
+
+print("Ships that are " + Fore.BLUE + "sailing" + Fore.RESET + " will be " + Fore.GREEN + "Green" + Fore.RESET + " and ships that have been " + Fore.YELLOW + "sunk " + Fore.RESET + "are "+ Fore.RED + "Red.\n" + Fore.RESET)
+  
+gridSize = int(input("\nEnter your grid size (# input)[26 Max]: "))
+board1Transfer = createP1Board(gridSize)
+board2Transfer = createP2Board(gridSize)
+
+numShips = int(input("How many ships would you like to have? (Max 5): "))
+
 placementType = int(input("Type 1 to automatically place ships or 0 to manually place ships: "))
-shipCreateS(numShips,  gridSize, player, )
 
+player = "Player 1"
+shipCreateS(numShips,  gridSize, player)
 
+player = "Player 2"
+shipCreateS(numShips,  gridSize, player)
 
 boardTransfer = createP1Board(gridSize)
 printBoard(boardTransfer)
+player = "Player 1"
 
 while(gooping):
 
     if playType == 1:
-        print("\nIt is player 1's turn.\n")
-        
+ 
+        print(f"\nIt is {player}'s turn.\n")
+
         userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
         bombTarget(userBomb, boardTransfer)
         time.sleep(.7)
         aresenal()
         gooping = gameEnding()
-    
+        if player == "Player 1":
+            player = "Player 2"
+        elif player == "Player 2":
+            player = "player 1"
+        compTarget(boardTransfer)
+        gooping = gameEnding()
 
 
     
