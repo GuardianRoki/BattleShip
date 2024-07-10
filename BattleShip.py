@@ -11,13 +11,11 @@ import keyboard
 # #             ["0","0","0","0","0"]]
 # #     return board
 
-def createBoard():
+def createP1Board(gridSize):
     
-    gridSize = input("\nEnter your grid size (#x#): ")
-
-    gridCreate = gridSize.split("x")
-    xGrid = gridCreate[0]
-    yGrid = gridCreate[1]
+    
+    xGrid = gridSize
+    yGrid = gridSize
 
     board = [['O'] * int(xGrid) for col in range(int(yGrid))]
     # intercept = str(board).replace("],", '],\n')
@@ -25,6 +23,17 @@ def createBoard():
 
     return board
 
+def createP2Board(gridSize):
+    
+    
+    xGrid = gridSize
+    yGrid = gridSize
+
+    board = [['O'] * int(xGrid) for col in range(int(yGrid))]
+    # intercept = str(board).replace("],", '],\n')
+    
+
+    return board
 
 
 # def printBoard(board):
@@ -52,12 +61,12 @@ def printBoard(board):
 
     for item in range(1, len(board) + 1):
         print("   " +  str(item), end = " ")
-    print("   ")
+    print("")
     for it in range(len(board)):
         print(keys[it] + ":", end = " | ")
         for item in range(len(board)):
             print(board[it][item], end = " | ")
-        print(" ")
+        print("")
 
 
 
@@ -201,8 +210,6 @@ p2Ship2 = []
 p1HitList = []
 p2HitList = []
 
-boardTransfer = createBoard()
-printBoard(boardTransfer)
 
 player = "Player 1"
 shipCreate(p1Ship1, p1Ship2, p2Ship1, p2Ship2, player)
@@ -217,13 +224,18 @@ print("\nWelcome to BattleShip!\n")
 print("In BattleShip, two players engage in a turn-based battle, competing to sink all of the opponent's ships before they lose all of their own.\n")
 print("Player 1 will start first. If an opposing ship is hit, your turn will continue. Otherwise, player 2's turn will begin.\n")
 
+gridSize = input("\nEnter your grid size (#): ")
+
+boardTransfer = createP1Board(gridSize)
+printBoard(boardTransfer)
+
 while(playing):
 
     
     player = "Player 1"
     print("\nIt is player 1's turn.\n")
 
-    userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
+    userBomb = input(f"\n{player}, Please select a section to hit with your artillery: ")
     bombTarget(userBomb, boardTransfer)
     # bombTarget(userBomb, board1Transfer)
 
