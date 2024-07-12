@@ -77,7 +77,7 @@ def bombTarget(userBomb, board, ):
     placehold = f"({yPos},{xPos})"
     print(placehold)
 
-    if placehold not in p1Dest and placehold not in p1Sub and placehold not in p1Cruise and placehold not in p1Battle and placehold not in p1Air:
+    if placehold not in p1Dest and placehold not in p1Sub and placehold not in p1Cruise and placehold not in p1Battle and placehold not in p1Air and placehold not in p2Dest and placehold not in p2Sub and placehold not in p2Cruise and placehold not in p2Battle and placehold not in p2Air:
 
         boardpos = strConvert(yPos)
         board[boardpos][int(xPos) - 1] = "X"
@@ -85,14 +85,106 @@ def bombTarget(userBomb, board, ):
         p1HitList.append(userBomb)
         missileLaunchO()
 
-    elif placehold in p1Dest or placehold in p1Sub or placehold in p1Cruise or placehold  in p1Battle or placehold  in p1Air:
+    elif player == "Player 1":
+        if placehold in p1Dest:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p1Dest.remove(placehold)
 
-        boardpos = strConvert(yPos)
-        board[boardpos][int(xPos) - 1] = "~"
-        printBoard(board)
-        p1HitList.append(userBomb)
-        misslieLaunchS()
-        print("You Hit!")
+        elif placehold in p1Sub:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p1Sub.remove(placehold)
+
+        elif placehold in p1Cruise:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p1Cruise.remove(placehold)
+
+        elif placehold in p1Battle:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p1Battle.remove(placehold)
+
+        elif placehold in p1Air:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p1Air.remove(placehold)
+
+    elif player == "Player 2":
+
+        if placehold in p2Dest:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p2Dest.remove(placehold)
+
+        elif placehold in p2Sub:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p2Sub.remove(placehold)
+
+        elif placehold in p2Cruise:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p2Cruise.remove(placehold)
+
+        elif placehold in p2Battle:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p2Battle.remove(placehold)
+
+        elif placehold in p2Air:
+            boardpos = strConvert(yPos)
+            board[boardpos][int(xPos) - 1] = "~"
+            printBoard(board)
+            p1HitList.append(userBomb)
+            misslieLaunchS()
+            print("You Hit!")
+            p2Air.remove(placehold)
+
+
+
+
+
+
+
+
 
         return targetLoc and board
 
@@ -141,6 +233,8 @@ def createDest(playType, gridSize, placementType, newCol, board):
         if placementType == 1:
             orientation = random.randint(0,1)
             generateX = random.randint(0,gridSize - 1)
+            shipName = "USS Boring"
+            p1Destid.append(shipName)
             xLetter = strConvertc(generateX)
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
@@ -185,6 +279,8 @@ def createDest(playType, gridSize, placementType, newCol, board):
             p2Dest.append(str_correlate)
         elif placementType == 0:
             printBoard(board)
+            shipName = input("What would you like to name your ship")
+            p1Destid.append(shipName)
             shipLoc = input("Please input a location to sail your ship: ")
             parkedShip = shipLoc.split(",")
             xLetter = parkedShip[0]
@@ -202,8 +298,6 @@ def createDest(playType, gridSize, placementType, newCol, board):
             newCol = strConvert(xLetter2)
             board[newCol][int(yNumber2) -1] = "#"
             printBoard(board)
-
-
     elif player == "Player 2":
         if placementType == 1:
         #horVert = random.randint(0,1)
@@ -214,11 +308,15 @@ def createDest(playType, gridSize, placementType, newCol, board):
             generateX = random.randint(0,gridSize - 1)
             xLetter = strConvertc(generateX)
             generateY = random.randint(1,gridSize - 1)
+            shipName = "USS Boring"
+            p2Destid.append(shipName)
             str_correlate = f"({xLetter},{generateY})"
             print(str_correlate)
             p1Dest.append(str_correlate)
         elif placementType == 0 and playType == 2:
             shipLoc = input("Please input a location to sail your ship: ")
+            shipName = input("What would you like to name your ship? ")
+            p2Destid.append(shipName)
             parkedShip = shipLoc.split(",")
             xLetter = parkedShip[0]
             yNumber = parkedShip[1]
@@ -305,28 +403,24 @@ def strConvert(col):
 
     return newCol
 
-def gameEnding():
+def gameEnding(playerwin):
     if len(p1HitList) >= 5:
         playing = False
         print("Your enemy managed to escape! You gotta be quicker next time! ")
         return playing
     elif len(shipsSunk) == numShips:
-        playing = False
-        print("You banished all your opponents! Your name will go down in history as a great seamen")
+        if playerwin == "Player 1":
+            playing = False
+            print("You banished all your opponents! Your name will go down in history as a great seamen")
+            print("Player 1 wins!! ")
+        elif playerwin == "Player 2":
+            playing = False
+            print("You banished all your opponents! Your name will go down in history as a great seamen")
+            print("Player 2 wins!! ")
         return playing
     else:
         playing = True
         return playing
-
-# def listint():
-
-# def shipManual():
-#     shipLoc = input("Please input a location to sail your ship: ")
-#     parkedShip = shipLoc.split(",")
-#     xLetter = parkedShip[0]
-#     yNumber = parkedShip[1]
-#     str_correlate = f"({xLetter},{yNumber})"
-#     p1.append(str_correlate)
 
 def aresenal():
     if len(p1HitList) == 0:
@@ -573,16 +667,30 @@ def compTarget(board):
             #     misslieLaunchS()
             #     print("You Hit!")
 
+def listInt():
+    if numShips == 1:
+        if len(p1Dest) == 0:
+            shipsSunk.append("X")
+            playerwin = "Player 1"
+        elif len(p2Dest) == 0:
+            shipsSunk.append("X")
+            playerwin = "Player 2"
+    # elif numShips == 2:
+
+    # elif numShips == 3:
+
+    # elif numShips == 4:
+
+    # elif numShips == 5:
+    return playerwin
+
 def strConvertc(col):
     keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
     newCol = keys[col]
-    print("I am in here" + str(newCol))
+    print(str(newCol))
 
     return newCol
-
-
-
 
 
 gooping = True
@@ -591,10 +699,11 @@ placehold = None
 playType = None
 newCol = None
 newColn = None
-
+playerwin = None
 
 
 p1Dest = []
+p1Destid = []
 p1Sub = []
 p1Cruise = []
 p1Battle = []
@@ -603,25 +712,29 @@ p1Ship2 = []
 
 
 p2Dest = []
+p2Destid = []
 p2Sub = []
 p2Cruise = []
 p2Battle = []
 p2Air = []
 p2Ship2 = []
 
+
 p2Ship1 = []
 p2Ship2 = []
+
 
 p1HitList = []
 p2HitList = []
 
+
 p1HitsHit = []
 p2HitsHit= []
+
 
 shipsSunk = []
 
     
-
 
 playType = gmode()
 
@@ -641,6 +754,8 @@ numShips = int(input("How many ships would you like to have? (Max 5): "))
 
 placementType = int(input("Type 1 to automatically place ships or 0 to manually place ships: "))
 
+
+
 player = "Player 1"
 shipCreateS(numShips,  gridSize, player, board1TransferDef, newCol)
 
@@ -652,20 +767,33 @@ player = "Player 1"
 while(gooping):
 
     if playType == 1:
- 
+        player = "Player 1"
         print(f"\nIt is {player}'s turn.\n")
-
         userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
         bombTarget(userBomb, board1TransferAtk)
         time.sleep(.7)
         aresenal()
-        gooping = gameEnding()
-        if player == "Player 1":
-            player = "Player 2"
-        elif player == "Player 2":
-            player = "player 1"
+        gooping = gameEnding(playerwin)
+        player = "Player 2"
         compTarget(board1TransferDef)
-        gooping = gameEnding()
+        gooping = gameEnding(playerwin)
+        continue
+    elif playType == 2:
+        player = "Player 1"
+        print(f"\nIt is {player}'s turn.\n")
+        userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
+        bombTarget(userBomb, board1TransferAtk)
+        time.sleep(.7)
+        aresenal()
+        gooping = gameEnding(playerwin)
+        player = "Player 2"
+        userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
+        bombTarget(userBomb, board1TransferAtk)
+        time.sleep(.7)
+        aresenal()
+        gooping = gameEnding(playerwin)
+        continue
+
 
 
     
