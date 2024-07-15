@@ -29,11 +29,9 @@ def createP1BoardAtk(gridSize):
 
 def createP2BoardDef(gridSize):
     
-
     field = [['O'] * int(gridSize) for col in range(int(gridSize))]
     # intercept = str(board).replace("],", '],\n')
     
-
     return field
 
 # Creates a board for player 2 (or computer) attack coordinates
@@ -63,10 +61,7 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
-        intercept = str(board).replace("],", '],\n')
-    return intercept
-
-def bombTarget(userBomb, board, ):
+def bombTarget(userBomb, board, player):
     if userBomb in p1HitList or userBomb in p2HitList:
         print("You've already hit this space! ")
         userBomb = input("Please select a section to hit with your artilery: ")
@@ -233,12 +228,230 @@ def createDest(playType, gridSize, placementType, newCol, board):
         if placementType == 1:
             orientation = random.randint(0,1)
             generateX = random.randint(0,gridSize - 1)
-            shipName = "USS Boring"
+            print(generateX)
+            xLetter = strConvertc(generateX)
+            print(xLetter)
+            generateY = random.randint(1,gridSize - 1)
+            print(generateY)
+            str_correlate = f"({xLetter},{generateY})"
+            p2Dest.append(str_correlate)
+            print(str_correlate)
+            # shipName = "USS Boring"
+            # p1Destid.append(shipName)
+            if orientation == 1:
+                Ysubstitute = generateY
+                #vertical
+                if generateX == 0:
+                    board[generateX][Ysubstitute - 1] = "1#"
+                    print(generateX)
+                    print(Ysubstitute)
+                    print(orientation)
+                    board[generateX + 1][Ysubstitute - 1] = "2#"
+                    xLetter3 = strConvertc(generateX + 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                    print(str_correlate3)
+                    print(xLetter3)
+                    printBoard(board)
+                elif generateX == (gridSize - 1):
+                    print(generateX)
+                    print(Ysubstitute)
+                    print(orientation)
+                    board[generateX][Ysubstitute - 1] = "3#"
+                    board[generateX - 1][Ysubstitute - 1] = "4#"
+                    xLetter3 = strConvertc(generateX - 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                    print(str_correlate3)
+                    print(xLetter3)
+                    printBoard(board)
+                else:
+                    toporbottom = random.randint(0,1)
+                    if toporbottom == 0:
+                        #top
+                        board[generateX][Ysubstitute - 1] = "5#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        print(orientation)
+                        board[generateX - 1][Ysubstitute - 1] = "6#"
+                        xLetter3 = strConvertc(generateX - 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                        print(str_correlate3)
+                        print(xLetter3)
+                        printBoard(board)
+                    elif toporbottom == 1:
+                        #bottom
+                        board[generateX][Ysubstitute - 1] = "7#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        print(orientation)
+                        board[generateX + 1][Ysubstitute - 1] = "8#"
+                        xLetter3 = strConvertc(generateX + 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                        print(str_correlate3)
+                        print(xLetter3)
+                        printBoard(board)
+            elif orientation == 0:
+                #horiz
+                Ysubstitute = generateY
+                if generateY == 1:
+                    board[generateX][Ysubstitute] = "9#"
+                    print(generateX)
+                    print(Ysubstitute)
+                    print(orientation)
+                    board[generateX][Ysubstitute + 1] = "10#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                    print(str_correlate3)
+                    printBoard(board)
+                elif generateY == (gridSize - 1):
+                    board[generateX][Ysubstitute] = "11#"
+                    print(generateX)
+                    print(Ysubstitute)
+                    print(orientation)
+                    board[generateX][Ysubstitute - 1] = "12#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+                    print(str_correlate3)
+                    printBoard(board)
+
+                else:
+                    toporbottom = random.randint(0,1)
+                    if toporbottom == 0:
+                        #right
+                        board[generateX][Ysubstitute] = "13#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        print(orientation)
+                        board[generateX][Ysubstitute + 1] = "14#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
+
+                    elif toporbottom == 1:
+                        #left
+                        board[generateX][Ysubstitute] = "15#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        print(orientation)
+                        board[generateX][Ysubstitute - 1] = "16#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+                        print(str_correlate3)
+                        printBoard(board)
+
+            p2Dest.append(str_correlate3)
+            printBoard(board)
+        elif placementType == 0:
+            printBoard(board)
+            shipName = input("What would you like to name your ship")
             p1Destid.append(shipName)
+            shipLoc = input("Please input a location to sail your ship: ")
+            parkedShip = shipLoc.split(",")
+            xLetter = parkedShip[0]
+            yNumber = parkedShip[1]
+            str_correlate = f"({xLetter},{yNumber})"
+            p2Dest.append(str_correlate)
+            newCol = strConvert(xLetter)
+            board[newCol][int(yNumber) - 1] = "#"
+            shipLoc2 = input("Please enter the value of a cell touching yours either vertically or horizontally: ")
+            parkedShip2 = shipLoc2.split(",")
+            xLetter2 = parkedShip2[0]
+            yNumber2 = parkedShip2[1]
+            str_correlate2 = f"({xLetter2},{yNumber})"
+            p2Dest.append(str_correlate2)
+            newCol = strConvert(xLetter2)
+            board[newCol][int(yNumber2) -1] = "#"
+    elif player == "Player 2":
+        if placementType == 1:
+            orientation = random.randint(0,1)
+            generateX = random.randint(0,gridSize - 1)
             xLetter = strConvertc(generateX)
             generateY = random.randint(1,gridSize - 1)
+            # shipName = "USS Boring"
+            # p2Destid.append(shipName)
             str_correlate = f"({xLetter},{generateY})"
+            p2Dest.append(str_correlate)
             print(str_correlate)
+            if orientation == 1:
+                Ysubstitute = generateY
+                #vertical
+                if generateX == 0:
+                    board[generateX][Ysubstitute - 1] = "1#"
+                    print(generateX)
+                    print(generateY)
+                    board[generateX + 1][Ysubstitute - 1] = "2#"
+                    xLetter3 = strConvertc(generateX + 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                elif generateX == (gridSize - 1):
+                    board[generateX][Ysubstitute - 1] = "1#"
+                    board[generateX - 1][Ysubstitute - 1] = "2#"
+                    xLetter3 = strConvertc(generateX - 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                else:
+                    toporbottom = random.randint(0,1)
+                    if toporbottom == 0:
+                        #top
+                        board[generateX][Ysubstitute - 1] = "1#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        board[generateX - 1][Ysubstitute - 1] = "2#"
+                        xLetter3 = strConvertc(generateX - 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                    elif toporbottom == 1:
+                        #bottom
+                        board[generateX][Ysubstitute - 1] = "1#"
+                        print(generateX)
+                        print(Ysubstitute)
+                        board[generateX + 1][Ysubstitute - 1] = "2#"
+                        xLetter3 = strConvertc(generateX + 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+            elif orientation == 0:
+                #horiz
+                Ysubstitute = generateY
+                if generateY == 1:
+                    board[generateX][Ysubstitute + 1] = "1#"
+                    print(generateX)
+                    print(generateY)
+                    board[generateX][Ysubstitute + 2] = "2#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                elif generateY == (gridSize - 1):
+                    board[generateX][Ysubstitute - 1] = "1#"
+                    print(generateX)
+                    print(generateY)
+                    board[generateX][Ysubstitute - 2] = "2#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+                else:
+                    toporbottom = random.randint(0,1)
+                    if toporbottom == 0:
+                        #right
+                        board[generateX][Ysubstitute + 1] = "1#"
+                        print(generateX)
+                        print(generateY)
+                        board[generateX][Ysubstitute + 2] = "2#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                    elif toporbottom == 1:
+                        #left
+                        board[generateX][Ysubstitute - 1] = "1#"
+                        print(generateX)
+                        print(generateY)
+                        board[generateX][Ysubstitute - 2] = "2#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+            p1Dest.append(str_correlate)
+            p1Dest.append(str_correlate3)
+            print(str_correlate3)
+        elif placementType == 0 and playType == 2:
+            shipLoc = input("Please input a location to sail your ship: ")
+            shipName = input("What would you like to name your ship? ")
+            p2Destid.append(shipName)
+            parkedShip = shipLoc.split(",")
+            xLetter = parkedShip[0]
+            yNumber = parkedShip[1]
+            str_correlate = f"({xLetter},{yNumber})"
+            print(str_correlate)
+            p1Dest.append(str_correlate)
+            strConvert(xLetter)
+        elif placementType == 0 and playType == 1:
+            orientation = random.randint(0,1)
+            generateX = random.randint(0,gridSize - 1)
+            xLetter = strConvert(generateX)
+            generateY = random.randint(1,gridSize - 1)
+            str_correlate = f"({xLetter},{generateY})"
             if orientation == 1:
                 #vertical
                 if generateX == 0:
@@ -275,60 +488,6 @@ def createDest(playType, gridSize, placementType, newCol, board):
                         #left
                         board[generateX][generateY] = "#"
                         board[generateX][generateY - 1] = "#"
-            printBoard(board)
-            p2Dest.append(str_correlate)
-        elif placementType == 0:
-            printBoard(board)
-            shipName = input("What would you like to name your ship")
-            p1Destid.append(shipName)
-            shipLoc = input("Please input a location to sail your ship: ")
-            parkedShip = shipLoc.split(",")
-            xLetter = parkedShip[0]
-            yNumber = parkedShip[1]
-            str_correlate = f"({xLetter},{yNumber})"
-            p2Dest.append(str_correlate)
-            newCol = strConvert(xLetter)
-            board[newCol][int(yNumber) - 1] = "#"
-            shipLoc2 = input("Please enter the value of a cell touching yours either vertically or horizontally: ")
-            parkedShip2 = shipLoc2.split(",")
-            xLetter2 = parkedShip2[0]
-            yNumber2 = parkedShip2[1]
-            str_correlate2 = f"({xLetter2},{yNumber})"
-            p2Dest.append(str_correlate2)
-            newCol = strConvert(xLetter2)
-            board[newCol][int(yNumber2) -1] = "#"
-            printBoard(board)
-    elif player == "Player 2":
-        if placementType == 1:
-        #horVert = random.randint(0,1)
-        # if horVert= 0:
-        #   generate  coordinates horizontally
-        # elif horVert = 1:
-        #   generate coordinates vertically 
-            generateX = random.randint(0,gridSize - 1)
-            xLetter = strConvertc(generateX)
-            generateY = random.randint(1,gridSize - 1)
-            shipName = "USS Boring"
-            p2Destid.append(shipName)
-            str_correlate = f"({xLetter},{generateY})"
-            print(str_correlate)
-            p1Dest.append(str_correlate)
-        elif placementType == 0 and playType == 2:
-            shipLoc = input("Please input a location to sail your ship: ")
-            shipName = input("What would you like to name your ship? ")
-            p2Destid.append(shipName)
-            parkedShip = shipLoc.split(",")
-            xLetter = parkedShip[0]
-            yNumber = parkedShip[1]
-            str_correlate = f"({xLetter},{yNumber})"
-            print(str_correlate)
-            p1Dest.append(str_correlate)
-            strConvert(xLetter)
-        elif placementType == 0 and playType == 1:
-            generateX = random.randint(0,gridSize - 1)
-            xLetter = strConvert(generateX)
-            generateY = random.randint(1,gridSize - 1)
-            str_correlate = f"({xLetter},{generateY})"
             print(str_correlate)
             p1Dest.append(str_correlate)
 
@@ -405,22 +564,23 @@ def strConvert(col):
 
 def gameEnding(playerwin):
     if len(p1HitList) >= 5:
-        playing = False
+        gooping = False
         print("Your enemy managed to escape! You gotta be quicker next time! ")
-        return playing
+        return gooping
     elif len(shipsSunk) == numShips:
         if playerwin == "Player 1":
-            playing = False
+            gooping = False
             print("You banished all your opponents! Your name will go down in history as a great seamen")
             print("Player 1 wins!! ")
+            return gooping
         elif playerwin == "Player 2":
-            playing = False
+            gooping = False
             print("You banished all your opponents! Your name will go down in history as a great seamen")
             print("Player 2 wins!! ")
-        return playing
+            return gooping
     else:
-        playing = True
-        return playing
+        gooping = True
+        return gooping
 
 def aresenal():
     if len(p1HitList) == 0:
@@ -672,9 +832,11 @@ def listInt():
         if len(p1Dest) == 0:
             shipsSunk.append("X")
             playerwin = "Player 1"
+            return playerwin
         elif len(p2Dest) == 0:
             shipsSunk.append("X")
             playerwin = "Player 2"
+            return playerwin
     # elif numShips == 2:
 
     # elif numShips == 3:
@@ -682,19 +844,15 @@ def listInt():
     # elif numShips == 4:
 
     # elif numShips == 5:
-    return playerwin
-
+    
 def strConvertc(col):
     keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
     newCol = keys[col]
-    print(str(newCol))
 
     return newCol
 
-
 gooping = True
-playing = gooping
 placehold = None
 playType = None
 newCol = None
@@ -720,8 +878,7 @@ p2Air = []
 p2Ship2 = []
 
 
-p2Ship1 = []
-p2Ship2 = []
+
 
 
 p1HitList = []
@@ -733,8 +890,6 @@ p2HitsHit= []
 
 
 shipsSunk = []
-
-    
 
 playType = gmode()
 
@@ -762,7 +917,6 @@ shipCreateS(numShips,  gridSize, player, board1TransferDef, newCol)
 player = "Player 2"
 shipCreateS(numShips,  gridSize, player, board2TransferDef, newCol)
 
-player = "Player 1"
 
 while(gooping):
 
@@ -770,13 +924,22 @@ while(gooping):
         player = "Player 1"
         print(f"\nIt is {player}'s turn.\n")
         userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
-        bombTarget(userBomb, board1TransferAtk)
+        print(p1Dest)
+        print(shipsSunk)
+        bombTarget(userBomb, board1TransferAtk, player)
         time.sleep(.7)
         aresenal()
-        gooping = gameEnding(playerwin)
+        listInt()
+        gooping = gameEnding(player)
+        if gooping == False:
+            break
         player = "Player 2"
+        print(f"\nIt is {player}'s turn.\n")
         compTarget(board1TransferDef)
-        gooping = gameEnding(playerwin)
+        listInt()
+        gooping = gameEnding(player)
+        if gooping == False:
+            break
         continue
     elif playType == 2:
         player = "Player 1"
@@ -785,30 +948,13 @@ while(gooping):
         bombTarget(userBomb, board1TransferAtk)
         time.sleep(.7)
         aresenal()
-        gooping = gameEnding(playerwin)
+        listInt()
+        gooping = gameEnding(player)
         player = "Player 2"
         userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
         bombTarget(userBomb, board1TransferAtk)
         time.sleep(.7)
         aresenal()
-        gooping = gameEnding(playerwin)
+        listInt()
+        gooping = gameEnding(player)
         continue
-
-
-
-    
-    # print("\nPress space when you are ready to end your turn\n")
-
-    # player = "Player 2"
-    # print("\nIt is player 2's turn.\n")
-
-    # userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
-    # bombTarget(userBomb, boardTransfer)
-    # # bombTarget(userBomb, board2Transfer)
-
-
-    # print("\nPress space when you are ready to end your turn\n")
-
-    # continue
-
-
