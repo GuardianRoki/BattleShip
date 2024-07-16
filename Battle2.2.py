@@ -3,7 +3,6 @@ import os
 import time
 from colorama import Fore, Back, Style
 
-
 # Creates a board for the player or computer
 
 def createBoard(gridSize):
@@ -30,6 +29,44 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
+def missileLaunchStrike():
+        
+        print("""     
+         -}===>
+        """)
+
+        time.sleep(.3)
+
+        print("""     
+            ---}===>
+        """)
+
+        time.sleep(.3)
+
+        print("""     
+              -----}===>
+        """)
+
+        time.sleep(.3)
+
+        print("""
+                                  ___|___
+                -------}===>      |     |
+                                  |_____/""")
+        
+        time.sleep(.3)
+
+        print("""
+                                  ___|___
+                  ---------}===>  |     |
+                                  |_____/""")
+        
+        time.sleep(.3)
+
+        print("""
+                                  ___|___
+                  ---------BOOOMM )     |
+                                  |_____/""")
 
 def missileLaunchMiss():
 
@@ -38,63 +75,89 @@ def missileLaunchMiss():
     if fiftychance == 1:
 
         print("""     
-        -}===>
+         -}===>
         """)
+
         time.sleep(.3)
+
         print("""     
-        ---}===>
+         ---}===>
         """)
+
         time.sleep(.3)
+
         print("""     
-        -----}===>
+         -----}===>
         """)
+
         time.sleep(.3)
+
         print("""      
-                          /     |
-        -------}===>   __/       |
-                      /           |
+                           /     |
+         -------}===>   __/       |
+                       /           |
         """)
+
         time.sleep(.3)
+
         print("""
-                          /     |
-        ---------}===> __/       |
-                      /           |
+                           /     |
+         ---------}===> __/       |
+                       /           |
         """)
+
         time.sleep(.3)
+
         print("""           
-                        (        )
-        --------------(   BOOM!   )
-                        (        )
+                         (        )
+         --------------(   BOOM!   )
+                         (        )
         """)
+
         print("You hit an innocent island...")
 
     else:
 
         print("""     
-        -}===>
+         -}===>
         """)
+
         time.sleep(.3)
+
         print("""     
-        ---}===>
+         ---}===>
         """)
+
         time.sleep(.3)
+
         print("""     
-        -----}===>
+         -----}===>
         """)
+
         time.sleep(.3)
+
         print("""      
                         
-        -------}===>  
+         -------}===>  
                 
         """)
+
         time.sleep(.3)
+
         print("""           
-                      (~~~~~~~~~)
-    ------------}===>(~~~~~~~~~~~~)
-                      (~~ >(^) ~~)
+                          (~~~~~~~~~)
+        ------------}===>(~~~~~~~~~~~~)
+                          (~~ >(^) ~~)
         """)
 
         print("THE POOR FISHIES")   
+
+def strConvert(col):
+    keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+
+    newCol = keys[col]
+
+    return newCol
 
 def strConvertc(col):
     keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -139,7 +202,12 @@ placementType = int(input("\nInput 1 to automatically place ships or 0 to manual
 # player = "Player 2"
 # shipCreateS(numShips, gridSize, player, grid)
 
+
+# Main function, runs core code
+
 def main(gooping):
+
+    # While loop to maintain runtime
 
     while gooping == True:
 
