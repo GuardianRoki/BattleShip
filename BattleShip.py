@@ -242,8 +242,8 @@ def createDest(player, gridSize, placementType, newCol, board):
             p2Dest.append(str_correlate)
             print(str_correlate)
 
-            # shipName = "USS Boring"
-            # p1Destid.append(shipName)
+            shipName = input("Name your ship: ")
+            p1Destid.append(shipName)
 
             if orientation == 1:
 
@@ -304,16 +304,16 @@ def createDest(player, gridSize, placementType, newCol, board):
                 if generateY == 1:
 
                     board[generateX][Ysubstitute] = "9#"
-                    board[generateX][Ysubstitute + 1] = "10#"
+                    board[generateX][Ysubstitute + 1] = "0#"
                     str_correlate3 = f"({xLetter},{Ysubstitute +2})"
                     print(str_correlate3)
                     printBoard(board)
 
                 elif generateY == (gridSize - 1):
 
-                    board[generateX][Ysubstitute] = "11#"
-                    board[generateX][Ysubstitute - 1] = "12#"
-                    str_correlate3 = f"({xLetter},{Ysubstitute - 2})"
+                    board[generateX][Ysubstitute] = "A#"
+                    board[generateX][Ysubstitute + 1] = "B#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute + 2})"
                     print(str_correlate3)
                     printBoard(board)
 
@@ -324,18 +324,18 @@ def createDest(player, gridSize, placementType, newCol, board):
                     if toporbottom == 0:
 
                         #right
-                        board[generateX][Ysubstitute] = "13#"
-                        board[generateX][Ysubstitute + 1] = "14#"
-                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        board[generateX][Ysubstitute] = "C#"
+                        board[generateX][Ysubstitute + 1] = "D#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 2})"
                         print(str_correlate3)
                         printBoard(board)
 
                     elif toporbottom == 1:
 
                         #left
-                        board[generateX][Ysubstitute] = "15#"
-                        board[generateX][Ysubstitute - 1] = "16#"
-                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        board[generateX][Ysubstitute] = "E#"
+                        board[generateX][Ysubstitute + 1] = "F#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 2})"
                         print(str_correlate3)
                         printBoard(board)
 
@@ -379,30 +379,37 @@ def createDest(player, gridSize, placementType, newCol, board):
             xLetter = strConvertc(generateX)
             generateY = random.randint(1,gridSize - 1)
 
-            # shipName = "USS Boring"
-            # p2Destid.append(shipName)
+            shipName = input("Name your ship: ")
+            p1Destid.append(shipName)
+
             str_correlate = f"({xLetter},{generateY})"
             p2Dest.append(str_correlate)
             print(str_correlate)
 
             if orientation == 1:
 
-                Ysubstitute = generateY
-                #vertical orientation
+                Ysubstitute = generateY - 1
+                #vertical
 
                 if generateX == 0:
 
-                    board[generateX][Ysubstitute - 1] = "1#"
-                    board[generateX + 1][Ysubstitute - 1] = "2#"
+                    board[generateX][Ysubstitute] = "1#"
+                    board[generateX + 1][Ysubstitute] = "2#"
+
                     xLetter3 = strConvertc(generateX + 1)
-                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                    str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                    print(str_correlate3)
+                    printBoard(board)
 
                 elif generateX == (gridSize - 1):
 
-                    board[generateX][Ysubstitute - 1] = "1#"
-                    board[generateX - 1][Ysubstitute - 1] = "2#"
+                    board[generateX][Ysubstitute] = "3#"
+                    board[generateX - 1][Ysubstitute] = "4#"
+
                     xLetter3 = strConvertc(generateX - 1)
-                    str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                    str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                    print(str_correlate3)
+                    printBoard(board)
 
                 else:
 
@@ -410,36 +417,46 @@ def createDest(player, gridSize, placementType, newCol, board):
 
                     if toporbottom == 0:
 
-                        #top(up) placement
-                        board[generateX][Ysubstitute - 1] = "1#"
-                        board[generateX - 1][Ysubstitute - 1] = "2#"
+                        #top
+                        board[generateX][Ysubstitute] = "5#"
+                        board[generateX - 1][Ysubstitute] = "6#"
+                        
                         xLetter3 = strConvertc(generateX - 1)
-                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                        str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
 
                     elif toporbottom == 1:
 
-                        #bottom (down) placement
-                        board[generateX][Ysubstitute - 1] = "1#"
-                        board[generateX + 1][Ysubstitute - 1] = "2#"
+                        #bottom
+                        board[generateX][Ysubstitute] = "7#"
+                        board[generateX + 1][Ysubstitute] = "8#"
+
                         xLetter3 = strConvertc(generateX + 1)
-                        str_correlate3 = f"({xLetter3},{Ysubstitute})"
+                        str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
 
             elif orientation == 0:
 
-                #horizontal orientation
-                Ysubstitute = generateY
+                #horiz
+                Ysubstitute = generateY - 1
 
                 if generateY == 1:
 
-                    board[generateX][Ysubstitute + 1] = "1#"
-                    board[generateX][Ysubstitute + 2] = "2#"
-                    str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                    board[generateX][Ysubstitute] = "9#"
+                    board[generateX][Ysubstitute + 1] = "0#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute + 2})"
+                    print(str_correlate3)
+                    printBoard(board)
 
                 elif generateY == (gridSize - 1):
 
-                    board[generateX][Ysubstitute - 1] = "1#"
-                    board[generateX][Ysubstitute - 2] = "2#"
-                    str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+                    board[generateX][Ysubstitute] = "A#"
+                    board[generateX][Ysubstitute - 1] = "B#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute + 2})"
+                    print(str_correlate3)
+                    printBoard(board)
 
                 else:
 
@@ -447,17 +464,21 @@ def createDest(player, gridSize, placementType, newCol, board):
 
                     if toporbottom == 0:
 
-                        #right placement
-                        board[generateX][Ysubstitute + 1] = "1#"
-                        board[generateX][Ysubstitute + 2] = "2#"
+                        #right
+                        board[generateX][Ysubstitute] = "C#"
+                        board[generateX][Ysubstitute + 1] = "D#"
                         str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
 
                     elif toporbottom == 1:
 
-                        #left placement
-                        board[generateX][Ysubstitute - 1] = "1#"
-                        board[generateX][Ysubstitute - 2] = "2#"
-                        str_correlate3 = f"({xLetter},{Ysubstitute - 1})"
+                        #left
+                        board[generateX][Ysubstitute] = "E#"
+                        board[generateX][Ysubstitute - 1] = "F#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
 
             p1Dest.append(str_correlate)
             p1Dest.append(str_correlate3)
@@ -465,17 +486,32 @@ def createDest(player, gridSize, placementType, newCol, board):
 
         elif placementType == 0 and playType == 2:
 
-            shipLoc = input("Input a coordinate to sail your ship: ")
-            shipName = input("Name your ship: ")
-            p2Destid.append(shipName)
+            #Manual Placement
+            printBoard(board)
+            shipName = input("What would you like to name your ship")
+            p1Destid.append(shipName)
 
-            # Separates the coordinate into index, letter[0] & number[1]
+            # Converts coordinates to indexes, Letter[0] & number[1]
+            shipLoc = input("Input a coordinate to sail your ship: ")
             parkedShip = shipLoc.split(",")
             xLetter = parkedShip[0]
             yNumber = parkedShip[1]
+
+            # Formats the coordinates & adds them to the destroyer list
             str_correlate = f"({xLetter},{yNumber})"
-            print(str_correlate)
             p1Dest.append(str_correlate)
+            newCol = strConvert(xLetter)
+
+            board[newCol][int(yNumber) - 1] = "#"
+            shipLoc2 = input("Enter the coordinates of a cell touching yours either vertically or horizontally: ")
+            parkedShip2 = shipLoc2.split(",")
+            xLetter2 = parkedShip2[0]
+            yNumber2 = parkedShip2[1]
+            str_correlate4 = f"({xLetter2},{yNumber})"
+            p1Dest.append(str_correlate4)
+
+            newCol = strConvert(xLetter2)
+            board[newCol][int(yNumber2) -1] = "#"
 
         elif placementType == 0 and playType == 1:
 
@@ -487,44 +523,99 @@ def createDest(player, gridSize, placementType, newCol, board):
 
             if orientation == 1:
 
-                #vertical orientation
+                Ysubstitute = generateY - 1
+                #vertical
 
                 if generateX == 0:
-                    board[generateX][generateY] = "#"
-                    board[generateX + 1][generateY] = "#"
+
+                    board[generateX][Ysubstitute] = "1#"
+                    board[generateX + 1][Ysubstitute] = "2#"
+
+                    xLetter3 = strConvertc(generateX + 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                    print(str_correlate3)
+                    printBoard(board)
+
                 elif generateX == (gridSize - 1):
-                    board[generateX][generateY] = "#"
-                    board[generateX - 1][generateY] = "#"
+
+                    board[generateX][Ysubstitute] = "3#"
+                    board[generateX - 1][Ysubstitute] = "4#"
+
+                    xLetter3 = strConvertc(generateX - 1)
+                    str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                    print(str_correlate3)
+                    printBoard(board)
+
                 else:
+
                     toporbottom = random.randint(0,1)
+
                     if toporbottom == 0:
+
                         #top
-                        board[generateX][generateY] = "#"
-                        board[generateX - 1][generateY] = "#"
+                        board[generateX][Ysubstitute] = "5#"
+                        board[generateX - 1][Ysubstitute] = "6#"
+                        
+                        xLetter3 = strConvertc(generateX - 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
+
                     elif toporbottom == 1:
+
                         #bottom
-                        board[generateX][generateY] = "#"
-                        board[generateX + 1][generateY] = "#"
+                        board[generateX][Ysubstitute] = "7#"
+                        board[generateX + 1][Ysubstitute] = "8#"
+
+                        xLetter3 = strConvertc(generateX + 1)
+                        str_correlate3 = f"({xLetter3},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
 
             elif orientation == 0:
+
                 #horiz
+                Ysubstitute = generateY - 1
+
                 if generateY == 1:
-                    board[generateX][generateY] = "#"
-                    board[generateX][generateY + 1] = "#"
+
+                    board[generateX][Ysubstitute] = "9#"
+                    board[generateX][Ysubstitute + 1] = "0#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute +2})"
+                    print(str_correlate3)
+                    printBoard(board)
+
                 elif generateY == (gridSize - 1):
-                    board[generateX][generateY] = "#"
-                    board[generateX][generateY - 1] = "#"
+
+                    board[generateX][Ysubstitute] = "A#"
+                    board[generateX][Ysubstitute - 1] = "B#"
+                    str_correlate3 = f"({xLetter},{Ysubstitute - 2})"
+                    print(str_correlate3)
+                    printBoard(board)
+
                 else:
+
                     toporbottom = random.randint(0,1)
+
                     if toporbottom == 0:
+
                         #right
-                        board[generateX][generateY] = "#"
-                        board[generateX][generateY + 1] = "#"
+                        board[generateX][Ysubstitute] = "C#"
+                        board[generateX][Ysubstitute + 1] = "D#"
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
+
                     elif toporbottom == 1:
+
                         #left
-                        board[generateX][generateY] = "#"
-                        board[generateX][generateY - 1] = "#"
-            print(str_correlate)
+                        board[generateX][Ysubstitute] = "E#"
+                        board[generateX][Ysubstitute - 1] = "F#"
+
+                        str_correlate3 = f"({xLetter},{Ysubstitute + 1})"
+                        print(str_correlate3)
+                        printBoard(board)
+
             p1Dest.append(str_correlate)
 
 # Creates a set of 3 (2 for now) points to represent the submarine, (medium sized ship) updates ship list based on arguments 
@@ -544,7 +635,7 @@ def createSub(gridSize, placementType):
 
         elif placementType == 0:
 
-            shipLoc = input("Please input a location to sail your ship: ")
+            shipLoc = input("Input a coordinate to sail your ship: ")
             parkedShip = shipLoc.split(",")
             xLetter = parkedShip[0]
             yNumber = parkedShip[1]
@@ -565,7 +656,7 @@ def createSub(gridSize, placementType):
 
         elif placementType == 0 and playType == 2:
 
-            shipLoc = input("Please input a location to sail your ship: ")
+            shipLoc = input("Input a coordinate to sail your ship: ")
             parkedShip = shipLoc.split(",")
             xLetter = parkedShip[0]
             yNumber = parkedShip[1]
@@ -779,7 +870,7 @@ def missileLaunchO():
         print("THE POOR FISHIES")
 
 def gmode():
-    gameMode = int(input("Enter 1 for singleplayer, 2 for co-op: "))
+    gameMode = int(input("\nInput 1 for singleplayer, 2 for co-op: "))
     return gameMode
 
 def compTarget(board):
@@ -788,7 +879,7 @@ def compTarget(board):
     xLetter = strConvertc(bombX)
     bombY = random.randint(1,gridSize - 1)
     placeholdc = f"({xLetter},{bombY})"
-    print("we are doing this too " + placeholdc)
+    print(f"Computer Hit: {placeholdc}")
 
     if placehold in p2HitList or placehold in p2HitsHit:
         print("You've already hit this space! ")
@@ -890,9 +981,9 @@ shipCreateS(numShips,  gridSize, player, board1TransferDef, newCol)
 player = "Player 2"
 shipCreateS(numShips,  gridSize, player, board2TransferDef, newCol)
 
-def main():
+def main(gooping):
 
-    while(gooping):
+    while gooping == True:
 
         if playType == 1:
 
@@ -900,8 +991,6 @@ def main():
             print(f"\nIt is {player}'s turn.\n")
 
             userBomb = input(f"\n{player}, Please select a section to hit with your artilery: ")
-            print(p1Dest)
-            print(shipsSunk)
             bombTarget(userBomb, board1TransferAtk, player)
             time.sleep(.7)
             aresenal()
@@ -945,4 +1034,4 @@ def main():
             gooping = gameEnding(player)
             continue
             
-main()
+main(gooping)
