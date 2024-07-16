@@ -752,10 +752,12 @@ def listInt():
     if numShips == 1:
         if len(p1Dest) == 0:
             shipsSunk.append("X")
+            print(f"You have sunk: {p1Destid[0]}")
             playerwin = "Player 1"
             return playerwin
         elif len(p2Dest) == 0:
             shipsSunk.append("X")
+            print(f"You have sunk: {p2Destid[0]}")
             playerwin = "Player 2"
             return playerwin
     # elif numShips == 2:
