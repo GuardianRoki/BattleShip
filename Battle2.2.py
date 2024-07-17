@@ -30,7 +30,7 @@ def printBoard(board):
         print(" ")
 
 
-
+print("hi")
 
 
 
