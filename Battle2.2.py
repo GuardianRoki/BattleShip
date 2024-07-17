@@ -29,6 +29,17 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
+
+
+
+
+
+
+
+
+
+# Animations for a hit on a ship
+
 def missileLaunchStrike():
         
         print("""     
@@ -67,6 +78,8 @@ def missileLaunchStrike():
                                   ___|___
                   ---------BOOOMM )     |
                                   |_____/""")
+
+# Animations for a miss 
 
 def missileLaunchMiss():
 
@@ -152,14 +165,9 @@ def missileLaunchMiss():
 
         print("THE POOR FISHIES")   
 
+# Converts a number to a letter
+
 def strConvert(col):
-    keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-
-    newCol = keys[col]
-
-    return newCol
-
-def strConvertc(col):
     keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
     newCol = keys[col]
@@ -183,13 +191,13 @@ print("Ships that are " + Fore.BLUE + "sailing" + Fore.RESET + " will be " + For
 gridSize = 10 # int(input("\nEnter your grid size (# input)[26 Max]: "))
 
 
-# Board for player 1's ships & enemy attack coordinates
+# First Board for player 1, shows ships & enemy attack coordinates
 board = createBoard(gridSize)
 
 # Board for computer's info
 grid = createBoard(gridSize)
 
-# Board for player 1, show's what they've attacked
+# Second Board for player 1, shows what they've attacked
 domain = createBoard(gridSize)
 
 numShips = 1 # int(input("\nHow many ships are you playing with? (Max 5): "))
