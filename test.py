@@ -31,10 +31,10 @@ E & F - O
 
 
 
-shipLoc = input("Please input a location to sail your ship: ")
-                parkedShip = shipLoc.split(",")
-                xLetter = parkedShip[0]
-                yNumber = parkedShip[1]
-                str_correlate = f"({xLetter},{yNumber})"
-                print(str_correlate)
-                p2ShipInfo.append(str_correlate)
+# shipLoc = input("Please input a location to sail your ship: ")
+#                 parkedShip = shipLoc.split(",")
+#                 xLetter = parkedShip[0]
+#                 yNumber = parkedShip[1]
+#                 str_correlate = f"({xLetter},{yNumber})"
+#                 print(str_correlate)
+#                 p2ShipInfo.append(str_correlate)
