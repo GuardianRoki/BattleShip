@@ -29,6 +29,7 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
+# Receives input from the player to target a location on the board
 
 def bombTarget(userBomb, board, p2ShipInfo, p1MovesList):
   
@@ -45,19 +46,16 @@ def bombTarget(userBomb, board, p2ShipInfo, p1MovesList):
     yPos = int(targetLoc[1])
     placehold = f"({xPos},{yPos})"
 
-
     for i in range(0, len(keys)):
-
 
         if placehold not in p2ShipInfo:
 
             if xPos == keys[i]:
 
                 board[i][yPos - 1] = "X"
-                p1ShipInfo.append(placehold)
+                p1MovesList.append(placehold)
                 # missileLaunchMiss()
                 # printBoard(board)
-
 
         elif placehold in p2ShipInfo:
 
@@ -65,10 +63,246 @@ def bombTarget(userBomb, board, p2ShipInfo, p1MovesList):
 
                 board[i][yPos - 1] = Fore.RED + "~" + Fore.RESET
                 p2ShipInfo.remove(placehold)
+                p1MovesList.append(placehold)
                 # missileLaunchStrike()
                 # printBoard(board)
                 print("You Hit!")
 
+def createDest(gridSize, placementType, board, player, p1ShipInfo, p2ShipInfo):
+        
+        if placementType == 1:
+
+            if player == "Player 1":
+                
+                orientation = random.randint(0,1)
+                generateX = random.randint(0,gridSize - 1)
+                xLetter = strConvert(generateX)
+                generateY = random.randint(1,gridSize - 1)
+                str_correlate = f"({xLetter},{generateY})"
+                p1ShipInfo.append(str_correlate)
+
+                if orientation == 1:
+                
+                #vertical orientation & extremes
+
+                    if generateX == 0:
+
+                        board[generateX][generateY - 1] = "1#"
+                        board[generateX + 1][generateY - 1] = "2#"
+                        xLetter2 = strConvert(generateX + 1)
+                        str_correlate2 = f"({xLetter2},{generateY - 1})"
+                        p1ShipInfo.append(str_correlate2)
+
+                    elif generateX == (gridSize - 1):
+
+                        board[generateX][generateY - 1] = "3#"
+                        board[generateX - 1][generateY - 1] = "4#"
+                        xLetter2 = strConvert(generateX - 1)
+                        str_correlate2 = f"({xLetter2},{generateY})"
+                        p1ShipInfo.append(str_correlate2)
+
+                    else:
+                        
+                        # centered vertical
+                        toporbottom = random.randint(0,1)
+
+                        if toporbottom == 0:
+
+                            #top
+                            board[generateX][generateY - 1] = "5#"
+                            board[generateX - 1][generateY - 1] = "6#"
+                            xLetter2 = strConvert(generateX - 1)
+                            str_correlate2 = f"({xLetter2},{generateY})"
+                            p1ShipInfo.append(str_correlate2)
+
+                        elif toporbottom == 1:
+
+                            #bottom
+                            board[generateX][generateY - 1] = "7#"
+                            board[generateX + 1][generateY - 1] = "8#" 
+                            xLetter2 = strConvert(generateX + 1)
+                            str_correlate2 = f"({xLetter2},{generateY})"
+                            p1ShipInfo.append(str_correlate2)
+
+                elif orientation == 0:
+
+                #horizontal extremes
+            
+                    if generateY == 1:
+
+                        board[generateX][generateY - 1] = "1#"
+                        board[generateX][generateY] = "2#"
+                        xLetter2 = strConvert(generateX)
+                        str_correlate2 = f"({xLetter2},{generateY + 1})"
+                        p1ShipInfo.append(str_correlate2)
+
+                    elif generateY == (gridSize - 1):
+
+                        board[generateX][generateY - 1] = "3#"
+                        board[generateX][generateY - 2] = "4#"
+                        xLetter2 = strConvert(generateX)
+                        str_correlate2 = f"({xLetter2},{generateY - 1})"
+                        p1ShipInfo.append(str_correlate2)
+
+                    else:
+
+                        # centered horizontal
+                        toporbottom = random.randint(0,1)
+
+                        if toporbottom == 0:
+
+                            #right
+                            board[generateX][generateY + 1] = "5#"
+                            board[generateX][generateY + 2] = "6#"
+                            xLetter2 = strConvert(generateX)
+                            str_correlate2 = f"({xLetter2},{generateY + 1})"
+                            p1ShipInfo.append(str_correlate2)
+
+                        elif toporbottom == 1:
+
+                            #left
+                            board[generateX][generateY - 1] = "7#"
+                            board[generateX][generateY - 2] = "8#"
+                            xLetter2 = strConvert(generateX)
+                            str_correlate2 = f"({xLetter2},{generateY - 1})"
+                            p1ShipInfo.append(str_correlate2)
+
+            elif player == "Player 2":
+
+                orientation = random.randint(0,1)
+                generateX = random.randint(0,gridSize - 1)
+                xLetter = strConvert(generateX)
+                generateY = random.randint(1,gridSize - 1)
+                str_correlate = f"({xLetter},{generateY})"
+                p2ShipInfo.append(str_correlate)
+
+                if orientation == 1:
+                
+                #vertical orientation & extremes
+
+                    if generateX == 0:
+
+                        board[generateX][generateY - 1] = "1#"
+                        board[generateX + 1][generateY - 1] = "2#"
+                        xLetter2 = strConvert(generateX + 1)
+                        str_correlate2 = f"({xLetter2},{generateY - 1})"
+                        p2ShipInfo.append(str_correlate2)
+
+                    elif generateX == (gridSize - 1):
+
+                        board[generateX][generateY - 1] = "3#"
+                        board[generateX - 1][generateY - 1] = "4#"
+                        xLetter2 = strConvert(generateX - 1)
+                        str_correlate2 = f"({xLetter2},{generateY})"
+                        p2ShipInfo.append(str_correlate2)
+
+                    else:
+                        
+                        # centered vertical
+                        toporbottom = random.randint(0,1)
+
+                        if toporbottom == 0:
+
+                            #top
+                            board[generateX][generateY - 1] = "5#"
+                            board[generateX - 1][generateY - 1] = "6#"
+                            xLetter2 = strConvert(generateX - 1)
+                            str_correlate2 = f"({xLetter2},{generateY})"
+                            p2ShipInfo.append(str_correlate2)
+
+                        elif toporbottom == 1:
+
+                            #bottom
+                            board[generateX][generateY - 1] = "7#"
+                            board[generateX + 1][generateY - 1] = "8#" 
+                            xLetter2 = strConvert(generateX + 1)
+                            str_correlate2 = f"({xLetter2},{generateY})"
+                            p2ShipInfo.append(str_correlate2)
+
+                elif orientation == 0:
+
+                #horizontal extremes
+            
+                    if generateY == 1:
+
+                        board[generateX][generateY - 1] = "1#"
+                        board[generateX][generateY] = "2#"
+                        xLetter2 = strConvert(generateX)
+                        str_correlate2 = f"({xLetter2},{generateY + 1})"
+                        p2ShipInfo.append(str_correlate2)
+
+                    elif generateY == (gridSize - 1):
+
+                        board[generateX][generateY - 1] = "3#"
+                        board[generateX][generateY - 2] = "4#"
+                        xLetter2 = strConvert(generateX)
+                        str_correlate2 = f"({xLetter2},{generateY - 1})"
+                        p2ShipInfo.append(str_correlate2)
+
+                    else:
+
+                        # centered horizontal
+                        toporbottom = random.randint(0,1)
+
+                        if toporbottom == 0:
+
+                            #right
+                            board[generateX][generateY + 1] = "5#"
+                            board[generateX][generateY + 2] = "6#"
+                            xLetter2 = strConvert(generateX)
+                            str_correlate2 = f"({xLetter2},{generateY + 1})"
+                            p2ShipInfo.append(str_correlate2)
+
+                        elif toporbottom == 1:
+
+                            #left
+                            board[generateX][generateY - 1] = "7#"
+                            board[generateX][generateY - 2] = "8#"
+                            xLetter2 = strConvert(generateX)
+                            str_correlate2 = f"({xLetter2},{generateY - 1})"
+                            p2ShipInfo.append(str_correlate2)
+
+        elif placementType == 0:
+
+            ""
+
+def compTarget(board, p1ShipInfo, compMoveList):
+
+    bombX = random.randint(0, gridSize - 1)
+    xLetter = strConvert(bombX)
+    bombY = random.randint(0,gridSize - 1)
+
+    placeholdc = f"({xLetter},{bombY})"
+
+    keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+
+    if placeholdc in compMoveList:
+
+        compTarget(board, p1ShipInfo, compMoveList)
+
+    if placeholdc not in p1ShipInfo:
+
+            for i in range(0, len(keys)):
+
+                if xLetter == keys[i]:
+
+                    board[i][bombY] = "X"
+                    compMoveList.append(placeholdc)
+                    missileLaunchMiss()
+                    printBoard(board)
+
+    elif placeholdc in p1ShipInfo:
+
+            for i in range(0, len(keys)):
+
+                if xLetter == keys[i]:
+
+                    board[0][bombY - 1] = Fore.RED + "~" + Fore.RESET
+                    compMoveList.append(placeholdc)
+                    p1ShipInfo.remove(placeholdc)
+                    missileLaunchStrike()
+                    printBoard(board)
+                    print("You Hit!")
 
 # Animations for a hit on a ship
 
