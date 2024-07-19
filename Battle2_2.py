@@ -29,6 +29,7 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
+#Allows user and computer to shoot at eachothers ships
 
 def bombTarget(userBomb, board, player,shipID1, shipID2, destName, destName2):
         print("inhere")
@@ -117,6 +118,8 @@ def bombTarget(userBomb, board, player,shipID1, shipID2, destName, destName2):
         #                 printBoard(board)
         #                 print("You Hit!")
 
+#
+
 def createDest(gridSize, placementType, board, player, shipID1, shipID2):
         
     if placementType == 1:
@@ -140,10 +143,9 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX][generateY - 1] = "1#"
                     board[generateX + 1][generateY - 1] = "2#"
                     xLetter2 = strConvert(generateX + 1)
-                    str_correlate2 = f"({xLetter2},{generateY - 1})"
+                    str_correlate2 = f"({xLetter2},{generateY})"
+
                     printBoard(board)
-                
-                    
 
                 elif generateX == (gridSize - 1):
 
@@ -151,8 +153,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX - 1][generateY - 1] = "4#"
                     xLetter2 = strConvert(generateX - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
+                    
                     printBoard(board)
-                
 
                 else:
                     
@@ -166,8 +168,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         board[generateX - 1][generateY - 1] = "6#"
                         xLetter2 = strConvert(generateX - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
-                        printBoard(board)
                         
+                        printBoard(board)
 
                     elif toporbottom == 1:
 
@@ -176,8 +178,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         board[generateX + 1][generateY - 1] = "8#" 
                         xLetter2 = strConvert(generateX + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
-                        printBoard(board)
                         
+                        printBoard(board)
 
             elif orientation == 0:
 
@@ -189,8 +191,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX][generateY] = "2#"
                     xLetter2 = strConvert(generateX)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
+                    
                     printBoard(board)
-                
 
                 elif generateY == (gridSize - 1):
 
@@ -198,8 +200,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX][generateY - 2] = "4#"
                     xLetter2 = strConvert(generateX)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
-                    printBoard(board)
                     
+                    printBoard(board)
 
                 else:
 
@@ -213,8 +215,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         board[generateX][generateY] = "6#"
                         xLetter2 = strConvert(generateX)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
+                        
                         printBoard(board)
-                    
 
                     elif toporbottom == 1:
 
@@ -251,7 +253,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX][generateY - 1] = "1#"
                     board[generateX + 1][generateY - 1] = "2#"
                     xLetter2 = strConvert(generateX + 1)
-                    str_correlate2 = f"({xLetter2},{generateY - 1})"
+                    str_correlate2 = f"({xLetter2},{generateY})"
 
                     printBoard(board)
 
@@ -319,10 +321,10 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     if toporbottom == 0:
 
                         #right
-                        board[generateX][generateY] = "5#"
-                        board[generateX][generateY + 1] = "6#"
+                        board[generateX][generateY - 1] = "5#"
+                        board[generateX][generateY] = "6#"
                         xLetter2 = strConvert(generateX)
-                        str_correlate2 = f"({xLetter2},{generateY})"
+                        str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
                         printBoard(board)
 
@@ -386,7 +388,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     board[generateX][generateY - 1] = "1#"
                     board[generateX + 1][generateY - 1] = "2#"
                     xLetter2 = strConvert(generateX + 1)
-                    str_correlate2 = f"({xLetter2},{generateY - 1})"
+                    str_correlate2 = f"({xLetter2},{generateY})"
 
                     printBoard(board)
 
@@ -454,8 +456,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                     if toporbottom == 0:
 
                         #right
-                        board[generateX][generateY + 1] = "5#"
-                        board[generateX][generateY + 2] = "6#"
+                        board[generateX][generateY - 1] = "5#"
+                        board[generateX][generateY] = "6#"
                         xLetter2 = strConvert(generateX)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
@@ -474,10 +476,6 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
             print(shipID2)
             return destName2
     
-        
-
-        
-
 # Animations for a hit on a ship
 
 def missileLaunchStrike():
