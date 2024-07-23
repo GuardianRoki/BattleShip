@@ -30,7 +30,7 @@ def printBoard(board):
             print(board[it][item], end = " | ")
         print(" ")
 
-#Allows user and computer to shoot at eachothers ships ||| Doesn't work yet, shooting doesn't "hit"
+# Allows user and computer to shoot at each others ships
 
 def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2):
         
@@ -40,18 +40,12 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             while len(userBomb) > 4:
                 print("\nInvalid input.")
                 userBomb = input("\nInput a coordinate (Letter,Number): ")
-
-        keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-
         
         if "," not in userBomb:
 
-            while "," not in userBomb:
-
-                print("\nInvalid input.")
-                userBomb = input("\nInput a coordinate (Letter,Number): ")
-                bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
-
+            print("\nInvalid input.")
+            userBomb = input("\nInput a coordinate (Letter,Number): ")
+            bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
 
         targetLoc = userBomb.split(",")
         xPos = targetLoc[0].capitalize()
@@ -61,12 +55,10 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
 
         if xPos.isalpha() == False:
 
-            while xPos.isalpha() == False:
-
-                print("\nInvalid input.")
-                userBomb = input("\nInput a coordinate (Letter,Number): ")
-                bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
-                
+            print("\nInvalid input.")
+            userBomb = input("\nInput a coordinate (Letter,Number): ")
+            bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
+            
         try:
 
             yPos = int(targetLoc[1])
@@ -80,43 +72,83 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
         targetLoc = userBomb.split(",")
         xPos = targetLoc[0].capitalize()
         yPos = int(targetLoc[1])
-        
+
+        if yPos > gridSize or yPos < 1:
+
+            print("\nInvalid input.")
+            userBomb = input("\nInput a coordinate (Letter,Number): ")
+            bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
 
         placehold = f"({xPos},{yPos})"
         xLetter = reverseConvert(xPos)
+
+        if board[xLetter][yPos - 1] == Fore.CYAN + "X" + Fore.RESET or board[xLetter][yPos - 1] == Fore.RED + "~" + Fore.RESET:
+            
+            print("\nYou have already attacked this spot.")
+            userBomb = input("\nInput a coordinate (Letter,Number): ")
+            bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
     
         scoordlist = shipID2.get(destName2)
         sscoordlist = shipID2.get(subName2)
+        counter = 0  
         
-
-        if placehold not in scoordlist or sscoordlist:
-
-            board[xLetter][yPos - 1] = Fore.CYAN + "X" + Fore.RESET
-            missileLaunchMiss()
-            printBoard(board)
-
-
-        elif placehold in scoordlist:
+        if placehold in scoordlist:
 
             board[xLetter][yPos - 1] = Fore.RED + "~" + Fore.RESET
             scoordlist.remove(placehold)
-            missileLaunchStrike()
+
+            if counter > 0:
+                ""
+            else:
+
+                missileLaunchStrike()
+                counter += 1
+
             printBoard(board)
-            print("You Hit!")
+            print("\nYou Hit!")
             shipID2.update({destName2: scoordlist})
             
         elif placehold in sscoordlist:
 
             board[xLetter][yPos - 1] = Fore.RED + "~" + Fore.RESET
             sscoordlist.remove(placehold)
-            missileLaunchStrike()
+
+            if counter > 0:
+                ""
+            else:
+
+                missileLaunchStrike()
+                counter += 1
+
             printBoard(board)
-            print("You Hit!")
+            print("\nYou Hit!")
             shipID2.update({subName2: sscoordlist})
         
-    elif player == "Player 2":
+        elif placehold not in scoordlist:
 
-        keys = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+            board[xLetter][yPos - 1] = Fore.CYAN + "X" + Fore.RESET
+
+            if counter > 0:
+                ""
+            else:
+                missileLaunchMiss()
+                counter += 1
+
+            printBoard(board)
+        
+        elif placehold not in sscoordlist:
+
+            board[xLetter][yPos - 1] = Fore.CYAN + "X" + Fore.RESET
+
+            if counter > 0:
+                ""
+            else:
+                missileLaunchMiss()
+                counter += 1
+
+            printBoard(board)
+ 
+    elif player == "Player 2":
 
         bombX = random.randint(0, gridSize - 1)
         xLetter = strConvert(bombX)
@@ -127,41 +159,36 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
         sscoordlist2 = shipID1.get(subName)
         
 
+        if placeholdc in scoordlist2:
 
-        if placeholdc not in scoordlist2 or sscoordlist2:
-
-                for i in range(0, len(keys)):
-
-                    if xLetter == keys[i]:
-
-                        board[i][bombY] = Fore.CYAN + "X" + Fore.RESET
-                        missileLaunchMiss()
-
-        elif placeholdc in scoordlist2:
-
-                for i in range(0, len(keys)):
-
-                    if xLetter == keys[i]:
-
-                        board[i][bombY - 1] = Fore.RED + "~" + Fore.RESET
-                        scoordlist2.remove(placeholdc)
-                        missileLaunchStrike()
-                        print("The Computer Hit!")
-                        shipID1.update({destName: scoordlist2})
+            board[bombX][bombY - 1] = Fore.RED + "~" + Fore.RESET
+            scoordlist2.remove(placeholdc)
+            missileLaunchStrike()
+            print("\nThe Computer Hit!")
+            shipID1.update({destName: scoordlist2})
             
         elif placeholdc in sscoordlist2:
 
-            for i in range(0, len(keys)):    
+            board[bombX][bombY - 1] = Fore.RED + "~" + Fore.RESET
+            sscoordlist2.remove(placeholdc)
+            missileLaunchStrike()
+            print("\nThe Computer Hit!")
+            shipID2.update({subName2: sscoordlist2})
 
-                if xLetter == keys[i]:
+        elif placeholdc not in scoordlist2:
 
-                    board[i][bombY - 1] = Fore.RED + "~" + Fore.RESET
-                    sscoordlist2.remove(placeholdc)
-                    missileLaunchStrike()
-                    print("The Computer Hit!")
-                    shipID2.update({subName2: sscoordlist2})
+            board[bombX][bombY] = Fore.CYAN + "X" + Fore.RESET
+            missileLaunchMiss()
+            print("\nThe Computer Missed!\n")
+        
+        elif placeholdc not in sscoordlist2:
 
-#Creates ships
+            board[bombX][bombY] = Fore.CYAN + "X" + Fore.RESET
+            missileLaunchMiss()
+            print("\nThe Computer Missed!\n")
+        
+
+#Creates destroyers
 
 def createDest(gridSize, placementType, board, player, shipID1, shipID2):
         
@@ -801,7 +828,8 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
                         xLetter2 = strConvert(generateX2)
                         str_correlate3 = f"({xLetter2},{generateY - 1})"
 
-            subName2 = "sub"
+            shipNameChoice = random.randint(0,5)
+            subName2 = f"USS {subNamePoss[shipNameChoice]}"
             coordlist2 = [str_correlate,str_correlate3]
             shipID2.update({subName2: coordlist2})
             return subName2
@@ -1168,7 +1196,7 @@ coordlist = []
 
 shipNamePoss = ["Glizzy Gang", "Chud Man", "Big Chungus", "Sussy Sigma", "Sleepy Joe", "Skibidi Slicer"]
 
-subNamePoss = ["Lebonbon", "Boe Jiden", "Tonald Drump", "Fortiniteylababag", "marccantcode", "I hate ben"]
+subNamePoss = ["Lebonbon", "Boe Jiden", "Tonald Drump", "Fortiniteylababag", "Nah I'd Win", "Bush Camper"]
 
 destName = ""
 
@@ -1192,7 +1220,7 @@ print("Ships that are " + Fore.BLUE + "sailing" + Fore.RESET + " will be " + For
 gridSize = 10 # int(input("\nEnter your grid size (# input)[26 Max]: "))
 
 
-# First Board for player 1, shows ships & enemy attack coordinates
+# Board for player 1, shows ships & enemy attack coordinates
 board = createBoard(gridSize)
 
 # Board for computer's info
@@ -1228,6 +1256,8 @@ while(gooping):
 
     player = "Player 1"
     print(f"\nIt is {player}'s turn.\n")
+
+    print(shipID2)
 
     userBomb = input(f"\n{player}, Please select a section to hit with your artillery: ")
     bombTarget(userBomb, board, player,shipID1, shipID2, destName, destName2, subName, subName2)
