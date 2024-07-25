@@ -126,6 +126,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
 
             print("\nYou Hit!")
             shipID2.update({subName2: sscoordlist})
+
             return shipID2
         
         elif placehold not in scoordlist:
@@ -137,7 +138,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             else:
                 missileLaunchMiss()
                 counter += 1
-
+            return shipID2
         
         elif placehold not in sscoordlist:
 
@@ -148,6 +149,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             else:
                 missileLaunchMiss()
                 counter += 1
+            return shipID2
 
  
     elif player == "Player 2":
@@ -169,6 +171,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             missileLaunchStrike()
             print("\nThe Computer Hit!")
             shipID1.update({destName: scoordlist2})
+
             return shipID1
             
         elif placeholdc in sscoordlist2:
@@ -178,6 +181,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             missileLaunchStrike()
             print("\nThe Computer Hit!")
             shipID2.update({subName2: sscoordlist2})
+
             return shipID1
 
         elif placeholdc not in scoordlist2:
@@ -185,12 +189,14 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             board[bombX2][bombY] = Fore.CYAN + "X" + Fore.RESET
             missileLaunchMiss()
             print("\nThe Computer Missed!\n")
+            return shipID1
         
         elif placeholdc not in sscoordlist2:
 
             board[bombX2][bombY] = Fore.CYAN + "X" + Fore.RESET
             missileLaunchMiss()
             print("\nThe Computer Missed!\n")
+            return shipID1
         
 
 #Creates destroyers
@@ -1215,12 +1221,12 @@ while(gooping):
     player = "Player 1"
     print(f"\nIt is {player}'s turn.\n")
 
-    print(shipID2)
-
     userBomb = input(f"\n{player}, Please select a section to hit with your artillery: ")
     # term, Term, isn't working
-    shipID1, shipID2 = bombTarget(userBomb, board, player,shipID1, shipID2, destName, destName2, subName, subName2)
+    shipID2 = bombTarget(userBomb, board, player,shipID1, shipID2, destName, destName2, subName, subName2)
     printBoard(board)
+    print(type(shipID1))
+    print(f"Shipid2: {type(shipID2)}")
     gooping = wincond(gooping, shipID1, shipID2, destName, destName2, subName, subName2)
 
     if gooping == False:
@@ -1235,7 +1241,7 @@ while(gooping):
 
     time.sleep(1)
 
-    shipID1, shipID2 = bombTarget(userBomb, grid, player,shipID1, shipID2, destName, destName2, subName, subName2)
+    shipID1 = bombTarget(userBomb, grid, player,shipID1, shipID2, destName, destName2, subName, subName2)
     printBoard(board)
     gooping = wincond(gooping ,shipID1, shipID2, destName, destName2, subName, subName2)
     
