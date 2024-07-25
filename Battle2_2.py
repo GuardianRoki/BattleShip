@@ -83,7 +83,8 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, subName, subName2)
 
         placehold = f"({xPos},{yPos})"
-        xLetter = strConvert(xPos)
+        xLetter = ord(xPos)
+        xLetter -= 65
 
         if board[xLetter][yPos - 1] == Fore.CYAN + "X" + Fore.RESET or board[xLetter][yPos - 1] == Fore.RED + "~" + Fore.RESET:
             
@@ -109,6 +110,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
 
             print("\nYou Hit!")
             shipID2.update({destName2: scoordlist})
+            return shipID2
             
         elif placehold in sscoordlist:
 
@@ -124,6 +126,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
 
             print("\nYou Hit!")
             shipID2.update({subName2: sscoordlist})
+            return shipID2
         
         elif placehold not in scoordlist:
 
@@ -151,7 +154,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
 
         bombX = random.randint(65, 74)
         bombX2 = bombX - 65
-        xLetter = strConvert(bombX)
+        xLetter = chr(bombX)
         bombY = random.randint(0,gridSize - 1)
         placeholdc = f"({xLetter},{bombY})"
 
@@ -166,6 +169,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             missileLaunchStrike()
             print("\nThe Computer Hit!")
             shipID1.update({destName: scoordlist2})
+            return shipID1
             
         elif placeholdc in sscoordlist2:
 
@@ -174,6 +178,7 @@ def bombTarget(userBomb, board, player, shipID1, shipID2, destName, destName2, s
             missileLaunchStrike()
             print("\nThe Computer Hit!")
             shipID2.update({subName2: sscoordlist2})
+            return shipID1
 
         elif placeholdc not in scoordlist2:
 
@@ -200,7 +205,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX = random.randint(65, 74)
             generateX2 = generateX - 65
-            xLetter = strConvert(generateX)
+            xLetter = chr(generateX)
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
             destName = input("\nName your first ship: ")
@@ -214,14 +219,14 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX + 1)
+                    xLetter2 = chr(generateX + 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
                 elif generateX == 74:
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX - 1)
+                    xLetter2 = chr(generateX - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
                     
                 else:
@@ -234,7 +239,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #top
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX - 1)
+                        xLetter2 = chr(generateX - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
                     elif toporbottom == 1:
@@ -242,7 +247,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #bottom
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET 
-                        xLetter2 = strConvert(generateX + 1)
+                        xLetter2 = chr(generateX + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
             elif orientation == 0:
@@ -253,14 +258,14 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
                     
                 elif generateY == (gridSize - 1):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
                     
                 else:
@@ -273,7 +278,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #right
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
                     elif toporbottom == 1:
@@ -281,7 +286,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #left
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY - 1})"                        
                     
             coordlist = [str_correlate,str_correlate2]
@@ -294,7 +299,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX = random.randint(65, 74)
             generateX2 = generateX - 65
-            xLetter = strConvert(generateX)
+            xLetter = chr(generateX)
 
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
@@ -310,7 +315,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX + 1)
+                    xLetter2 = chr(generateX + 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
 
@@ -318,7 +323,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX - 1)
+                    xLetter2 = chr(generateX - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
                     
 
@@ -332,7 +337,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #top
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX - 1)
+                        xLetter2 = chr(generateX - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
 
@@ -341,7 +346,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #bottom
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET 
-                        xLetter2 = strConvert(generateX + 1)
+                        xLetter2 = chr(generateX + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
 
@@ -353,7 +358,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
                     
 
@@ -361,7 +366,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
                     
 
@@ -375,7 +380,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #right
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
 
@@ -384,7 +389,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #left
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY - 1})"
                         
             coordlist2 = [str_correlate,str_correlate2]
@@ -406,7 +411,8 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
             # Formats the coordinates & adds them to the destroyer list
             str_correlate = f"({xLetter},{yNumber})"
-            newCol = strConvert(xLetter)
+            newCol = ord(xLetter)
+            newCol -= 65
 
             board[newCol][yNumber - 1] = Fore.GREEN + "#" + Fore.RESET
             shipLoc2 = input("Enter the coordinates of an adjacent cell vertically or horizontally: ")
@@ -415,11 +421,12 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
             yNumber2 = int(parkedShip2[1])
             str_correlate2 = f"({xLetter2},{yNumber})"
 
-            newCol = strConvert(xLetter2)
+            newCol = ord(xLetter2)
+            newCol -= 65
             board[newCol][yNumber2 -1] = Fore.GREEN + "#" + Fore.RESET
             coordlist = [(str_correlate,str_correlate2)]
             shipID2[destName] = coordlist
-            print(shipID1)
+            print(shipID2)
             return destName
 
         elif player == "Player 2":
@@ -427,7 +434,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX = random.randint(65, 74)
             generateX2 = generateX - 65
-            xLetter = strConvert(generateX)
+            xLetter = chr(generateX)
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
 
@@ -442,7 +449,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX + 1)
+                    xLetter2 = chr(generateX + 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
 
@@ -450,7 +457,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX - 1)
+                    xLetter2 = chr(generateX - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
                     
 
@@ -464,7 +471,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #top
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX - 1)
+                        xLetter2 = chr(generateX - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
 
@@ -473,7 +480,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #bottom
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX + 1)
+                        xLetter2 = chr(generateX + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
 
@@ -485,7 +492,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
                     
 
@@ -493,7 +500,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX)
+                    xLetter2 = chr(generateX)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
                     
 
@@ -507,7 +514,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #right
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
 
@@ -516,7 +523,7 @@ def createDest(gridSize, placementType, board, player, shipID1, shipID2):
                         #left
                         board[generateX2][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX2][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX)
+                        xLetter2 = chr(generateX)
                         str_correlate2 = f"({xLetter2},{generateY - 1})"
 
             coordlist2 = [(str_correlate,str_correlate2)]
@@ -536,7 +543,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX2 = random.randint(65, 74)
             generateX3 = generateX2 - 65
-            xLetter = strConvert(generateX2)
+            xLetter = chr(generateX2)
 
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
@@ -557,7 +564,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 + 1)
+                    xLetter2 = chr(generateX2 + 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
                 elif generateX2 == 74:
@@ -569,7 +576,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 - 1)
+                    xLetter2 = chr(generateX2 - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
                 else:
@@ -589,7 +596,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
 
-                        xLetter2 = strConvert(generateX3 - 1)
+                        xLetter2 = chr(generateX3 - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
 
                     elif toporbottom == 1:
@@ -603,7 +610,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET 
-                        xLetter2 = strConvert(generateX2 + 1)
+                        xLetter2 = chr(generateX2 + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
                         
             elif orientation == 0:
@@ -619,7 +626,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
 
                 elif generateY == (gridSize - 1):
@@ -633,7 +640,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
 
                 else:
@@ -652,7 +659,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2)
+                        xLetter2 = chr(generateX2)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
                         
                     elif toporbottom == 1:
@@ -667,7 +674,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
                             board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                             board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
 
-                            xLetter2 = strConvert(generateX2)
+                            xLetter2 = chr(generateX2)
                             str_correlate2 = f"({xLetter2},{generateY - 1})"    
 
             coordlist = [str_correlate,str_correlate2]
@@ -680,7 +687,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX2 = random.randint(65, 74)
             generateX3 = generateX2 - 65
-            xLetter = strConvert(generateX2)
+            xLetter = chr(generateX2)
 
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
@@ -696,7 +703,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 + 1)
+                    xLetter2 = chr(generateX2 + 1)
                     str_correlate3 = f"({xLetter2},{generateY})"
 
 
@@ -708,7 +715,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 - 1)
+                    xLetter2 = chr(generateX2 - 1)
                     str_correlate3 = f"({xLetter2},{generateY})"
 
 
@@ -727,7 +734,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2 - 1)
+                        xLetter2 = chr(generateX2 - 1)
                         str_correlate3 = f"({xLetter2},{generateY})"
 
                     elif toporbottom == 1:
@@ -740,7 +747,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET 
-                        xLetter2 = strConvert(generateX2 + 1)
+                        xLetter2 = chr(generateX2 + 1)
                         str_correlate3 = f"({xLetter2},{generateY})"
 
 
@@ -756,7 +763,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate3 = f"({xLetter2},{generateY + 1})"
 
 
@@ -768,7 +775,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate3 = f"({xLetter2},{generateY - 1})"
 
 
@@ -787,7 +794,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2)
+                        xLetter2 = chr(generateX2)
                         str_correlate3 = f"({xLetter2},{generateY + 1})"
 
                     elif toporbottom == 1:
@@ -800,7 +807,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2)
+                        xLetter2 = chr(generateX2)
                         str_correlate3 = f"({xLetter2},{generateY - 1})"
 
             shipNameChoice = random.randint(0,5)
@@ -824,21 +831,23 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
             # Formats the coordinates & adds them to the ship list
             str_correlate = f"({xLetter},{yNumber})"
-            newCol = strConvert(xLetter)
+            newCol = ord(xLetter)
+            newCol -= 65
 
             if board[newCol][yNumber] == Fore.GREEN + "#" + Fore.RESET:
 
                 print("\nYou are trying to place your second ship atop your first. Restart.\n")
                 createSub(gridSize, placementType, board, player, shipID1, shipID2)
 
-            board[newCol][yNumber - 1] = "#"
+            board[newCol][yNumber - 1] = Fore.GREEN + "#" + Fore.RESET
             shipLoc2 = input("Enter the coordinates of an adjacent cell vertically or horizontally: ")
             parkedShip2 = shipLoc2.split(",")
             xLetter2 = parkedShip2[0]
             yNumber2 = int(parkedShip2[1])
-            str_correlate2 = f"({xLetter2},{yNumber})"
+            str_correlate2 = f"({xLetter2},{yNumber2})"
 
-            newCol = strConvert(xLetter2)
+            newCol = ord(xLetter2)
+            newCol -= 65
 
             if board[newCol][yNumber2] == Fore.GREEN + "#" + Fore.RESET:
 
@@ -846,7 +855,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
                 createSub(gridSize, placementType, board, player, shipID1, shipID2)
 
 
-            board[newCol][yNumber2 -1] = "#"
+            board[newCol][yNumber2 -1] = Fore.GREEN + "#" + Fore.RESET
             coordlist = [(str_correlate,str_correlate2)]
             shipID1.update({subName: coordlist})
             print(shipID1)
@@ -857,7 +866,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
             orientation = random.randint(0,1)
             generateX2 = random.randint(65, 74)
             generateX3 = generateX2 - 65
-            xLetter = strConvert(generateX2)
+            xLetter = chr(generateX2)
 
             generateY = random.randint(1,gridSize - 1)
             str_correlate = f"({xLetter},{generateY})"
@@ -873,7 +882,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 + 1)
+                    xLetter2 = chr(generateX2 + 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
                 elif generateX2 == (gridSize - 1):
@@ -884,7 +893,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2 - 1)
+                    xLetter2 = chr(generateX2 - 1)
                     str_correlate2 = f"({xLetter2},{generateY})"
 
                 else:
@@ -902,7 +911,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 - 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2 - 1)
+                        xLetter2 = chr(generateX2 - 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
 
                     elif toporbottom == 1:
@@ -915,7 +924,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3 + 1][generateY - 1] = Fore.GREEN + "#" + Fore.RESET 
-                        xLetter2 = strConvert(generateX2 + 1)
+                        xLetter2 = chr(generateX2 + 1)
                         str_correlate2 = f"({xLetter2},{generateY})"
 
 
@@ -931,7 +940,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate2 = f"({xLetter2},{generateY + 1})"
 
 
@@ -943,7 +952,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                     board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                     board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                    xLetter2 = strConvert(generateX2)
+                    xLetter2 = chr(generateX2)
                     str_correlate2 = f"({xLetter2},{generateY - 1})"
 
                 else:
@@ -961,7 +970,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3][generateY] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2)
+                        xLetter2 = chr(generateX2)
                         str_correlate2 = f"({xLetter2},{generateY + 1})"
 
                     elif toporbottom == 1:
@@ -974,7 +983,7 @@ def createSub(gridSize, placementType, board, player, shipID1, shipID2):
 
                         board[generateX3][generateY - 1] = Fore.GREEN + "#" + Fore.RESET
                         board[generateX3][generateY - 2] = Fore.GREEN + "#" + Fore.RESET
-                        xLetter2 = strConvert(generateX2)
+                        xLetter2 = chr(generateX2)
                         str_correlate2 = f"({xLetter2},{generateY - 1})"
 
             shipNameChoice = random.randint(0,5)
@@ -1110,26 +1119,6 @@ def missileLaunchMiss():
 
         print("\nTHE POOR FISHIES")   
 
-
-def strConvert(col):
-
-    # The if statement is the issue
-
-    if str(col).isnumeric() == True:
-
-        # Num to let
-    
-        newCol = chr(col)
-        return newCol
-    
-    elif col.isalpha() == True:
-
-        # Let to num
-    
-        newCol = ord(col)
-        newCol -= 65
-        return newCol
-
 #Checks for wins
 
 def wincond(gooping, shipID1, shipID2, destName, destName2, subName, subName2):
@@ -1210,13 +1199,14 @@ except ValueError:
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 player = "Player 1"
+
 destName = createDest(gridSize, placementType, board, player, shipID1, shipID2)
 subName = createSub(gridSize, placementType, board, player, shipID1, shipID2)
 printBoard(board)
 
-# createSub(gridSize, placementType, board, player)
 
 player = "Player 2"
+
 destName2 = createDest(gridSize, placementType, grid, player, shipID1, shipID2)
 subName2 = createSub(gridSize, placementType, grid, player, shipID1, shipID2)
 
